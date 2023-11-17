@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 10:23:50 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/15 15:19:20 by dabae            ###   ########.fr       */
+/*   Updated: 2023/11/17 14:33:54 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef GET_NEXT_LINE_H
@@ -31,6 +31,8 @@ char	*get_next_line(int fd);
 int		line_len(t_list *buf_list);
 
 int		found_n(t_list *buf_list);
+
+int		ft_strchr(const char *s, int c);
 
 void	add_node(t_list **buf_list, char *buffer);
 

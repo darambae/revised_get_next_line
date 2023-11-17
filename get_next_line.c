@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:07:09 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/15 16:07:35 by dabae            ###   ########.fr       */
+/*   Updated: 2023/11/17 14:47:06 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -34,8 +34,6 @@ static	char	*copy_rest(t_list *last_node)
 		while (--rest_len >= 0)
 			rest[rest_len] = last_node->str_tmp[i + 1 + rest_len];
 	}
-	else
-		rest = NULL;
 	return (rest);
 }
 
@@ -89,6 +87,11 @@ static	void	retrieve_line(t_list *buf_list, char **line)
 			}
 			(*line)[j++] = buf_list->str_tmp[i++];
 		}
+		if (buf_list->str_tmp[i] == '\0' && i > 0)
+		{
+			(*line)[j] = '\0';
+			return ;
+		}
 		buf_list = buf_list->next;
 	}
 	(*line)[j] = '\0';
@@ -125,11 +128,18 @@ char	*get_next_line(int fd)
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
-		return (NULL);
+		return (free(buf_list), buf_list = NULL, NULL);
 	create_list(&buf_list, fd);
 	if (!buf_list)
 		return (NULL);
 	retrieve_line(buf_list, &line);
 	extract_rest(&buf_list);
+	if (line[0] == '\0')
+	{
+		free_list(&buf_list);
+		buf_list = NULL;
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }

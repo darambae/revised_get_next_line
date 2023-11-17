@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:07:55 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/15 16:13:23 by dabae            ###   ########.fr       */
+/*   Updated: 2023/11/17 14:46:32 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -57,6 +57,8 @@ int	line_len(t_list *buf_list)
 	int	j;
 
 	j = 0;
+	if (!buf_list)
+		return (0);
 	while (buf_list)
 	{
 		i = 0;
@@ -67,6 +69,8 @@ int	line_len(t_list *buf_list)
 			i++;
 			j++;
 		}
+		if (buf_list->str_tmp[i] == '\0' && i > 0)
+			return (j);
 		buf_list = buf_list->next;
 	}
 	return (-1);
@@ -76,18 +80,30 @@ int	found_n(t_list *buf_list)
 {
 	int	i;
 
+	if (!buf_list)
+		return (0);
 	while (buf_list)
 	{
 		i = 0;
 		while (buf_list->str_tmp[i] && i < BUFFER_SIZE)
 		{
-			if (buf_list->str_tmp[i] == '\n' && buf_list->str_tmp[i] == '\0')
-				return (1);
 			if (buf_list->str_tmp[i] == '\n')
 				return (1);
 			i++;
 		}
+		if (buf_list->str_tmp[i] == '\0' && i > 0)
+			return (1);
 		buf_list = buf_list->next;
 	}
 	return (0);
+}
+
+int	ft_strchr(const char *s, int c)
+{
+	while (*s && ((unsigned char)*s != (unsigned char)c))
+		s++;
+	if ((unsigned char)*s != (unsigned char)c)
+		return (0);
+	else
+		return (1);
 }
