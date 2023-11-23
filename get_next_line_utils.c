@@ -6,7 +6,7 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:07:55 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/21 17:37:33 by dabae            ###   ########.fr       */
+/*   Updated: 2023/11/23 14:22:48 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
@@ -39,12 +39,12 @@ void	prep_line(char **line, t_list *buf_list)
 	}
 	*line = malloc(sizeof(char) * (j + 1));
 }
-void	free_list(t_list **buf_list)
+void	free_list(t_list *buf_list)
 {
 	t_list	*tmp;
 	t_list	*current;
 
-	current = *buf_list; 
+	current = buf_list; 
 	while (current)
 	{
 		free(current->str_tmp);
@@ -60,7 +60,16 @@ int	found_n(t_list *buf_list)
 
 	if (!buf_list)
 		return (0);
-	while (buf_list)
+	while (buf_list->next)
+		buf_list = buf_list->next;
+	i = 0;
+	while (buf_list->str_tmp[i])
+	{
+		if (buf_list->str_tmp[i] == '\n')
+			return (1);
+		i++;
+	}
+	/*while (buf_list)
 	{
 		i = 0;
 		while (buf_list->str_tmp[i] && i < BUFFER_SIZE)
@@ -70,6 +79,6 @@ int	found_n(t_list *buf_list)
 			i++;
 		}
 		buf_list = buf_list->next;
-	}
+	}*/
 	return (0);
 }

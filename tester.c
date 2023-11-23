@@ -6,11 +6,11 @@
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 09:48:59 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/21 15:55:55 by dabae            ###   ########.fr       */
+/*   Updated: 2023/11/23 17:05:28 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+/* #include "get_next_line.h"
 #include <stdio.h>
 #include <fcntl.h>
 #include <unistd.h>
@@ -44,5 +44,26 @@ int main() {
     close(fd);
 
     return 0;
-}
+} */
+
+#include <fcntl.h>
+#include <stdio.h>
+#include "get_next_line.h"
+
+int	main(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("test.txt", O_RDONLY, 0777);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		printf("%s\n", line);
+		free(line);
+	}
+	close (fd);
+	return (0);}
 
