@@ -72,6 +72,8 @@ int	found_n(t_list *buf_list)
 	int	i;
 	t_list *last;
 
+	if (!buf_list)
+		return (0);
 	last = ft_lastnode(buf_list);
 	i = 0;
 	while (last->str_tmp[i])

@@ -28,7 +28,6 @@ static	void	clean_keep_rest(t_list **buf_list)
 		i++;
 	if (last->str_tmp && last->str_tmp[i] == '\n')
 		i++;
-	free(last->str_tmp);
 	new->str_tmp = malloc(sizeof(char) * (ft_strlen(last->str_tmp) - i + 1));
 	if (!new->str_tmp)
 		return ;
@@ -132,9 +131,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	}
 	line = NULL;
-	write(1, "a", 1);
 	create_list(&buf_list, fd);
-	write(1, "b", 1);
 	if (!buf_list)
 		return (NULL);
 	retrieve_line(buf_list, &line);
