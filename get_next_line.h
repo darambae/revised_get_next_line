@@ -36,4 +36,5 @@ void	free_list(t_list *buf_list);
 
 void    prep_line(char **line, t_list *buf_list);
 
+t_list *ft_lastnode(t_list *buf_list);
 #endif

@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "get_next_line.h"
+
 int	ft_strlen(char *s)
 {
 	int	i;
@@ -19,6 +20,17 @@ int	ft_strlen(char *s)
 		i++;
 	return (i);
 }
+
+t_list	*ft_lastnode(t_list *buf_list)
+{
+	t_list *current;
+
+	current = buf_list;
+	while (current && current->next)
+		current = current->next;
+	return (current);
+}
+
 void	prep_line(char **line, t_list *buf_list)
 {
 	int	i;
@@ -39,6 +51,7 @@ void	prep_line(char **line, t_list *buf_list)
 	}
 	*line = malloc(sizeof(char) * (j + 1));
 }
+
 void	free_list(t_list *buf_list)
 {
 	t_list	*tmp;
@@ -57,28 +70,15 @@ void	free_list(t_list *buf_list)
 int	found_n(t_list *buf_list)
 {
 	int	i;
+	t_list *last;
 
-	if (!buf_list)
-		return (0);
-	while (buf_list->next)
-		buf_list = buf_list->next;
+	last = ft_lastnode(buf_list);
 	i = 0;
-	while (buf_list->str_tmp[i])
+	while (last->str_tmp[i])
 	{
-		if (buf_list->str_tmp[i] == '\n')
+		if (last->str_tmp[i] == '\n')
 			return (1);
 		i++;
 	}
-	/*while (buf_list)
-	{
-		i = 0;
-		while (buf_list->str_tmp[i] && i < BUFFER_SIZE)
-		{
-			if (buf_list->str_tmp[i] == '\n')
-				return (1);
-			i++;
-		}
-		buf_list = buf_list->next;
-	}*/
 	return (0);
 }
