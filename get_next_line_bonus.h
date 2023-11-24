@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/03 10:23:50 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/24 08:58:55 by dabae            ###   ########.fr       */
+/*   Created: 2023/11/24 09:23:51 by dabae             #+#    #+#             */
+/*   Updated: 2023/11/24 09:43:25 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
@@ -38,3 +39,4 @@ void	prep_line(char **line, t_list *buf_list);
 
 t_list	*ft_lastnode(t_list *buf_list);
 #endif
+

@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 12:07:09 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/24 09:21:04 by dabae            ###   ########.fr       */
+/*   Created: 2023/11/24 09:23:27 by dabae             #+#    #+#             */
+/*   Updated: 2023/11/24 10:15:41 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
+#include "get_next_line_bonus.h"
 
 static	void	clean_keep_rest(t_list **buf_list)
 {
@@ -67,7 +68,7 @@ static	void	retrieve_line(t_list *buf_list, char **line)
 	(*line)[j] = '\0';
 }
 
-static void	add_node(t_list **buf_list, char *buffer, int bytes_read)
+static void	add_node(t_list **buf_list, char *buffer, int bytes_read, int fd)
 {
 	t_list	*new;
 	t_list	*tmp;
@@ -87,12 +88,12 @@ static void	add_node(t_list **buf_list, char *buffer, int bytes_read)
 		i++;
 	}
 	new->str_tmp[i] = '\0';
-	if (*buf_list == NULL)
+	if (buf_list[fd] == NULL)
 	{
-		*buf_list = new;
+		buf_list[fd] = new;
 		return ;
 	}
-	tmp = ft_lastnode(*buf_list);
+	tmp = ft_lastnode(buf_list[fd]);
 	tmp->next = new;
 }
 
@@ -102,7 +103,7 @@ static	void	create_list(t_list **buf_list, int fd)
 	int		bytes_read;
 
 	bytes_read = 1;
-	while (!found_n(*buf_list) && bytes_read != 0)
+	while (!found_n(buf_list[fd]) && bytes_read != 0)
 	{
 		buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 		if (!buffer)
@@ -114,7 +115,7 @@ static	void	create_list(t_list **buf_list, int fd)
 			return ;
 		}
 		buffer[bytes_read] = '\0';
-		add_node(buf_list, buffer, bytes_read);
+		add_node(buf_list, buffer, bytes_read, fd);
 		free(buffer);
 		buffer = NULL;
 	}
@@ -122,27 +123,28 @@ static	void	create_list(t_list **buf_list, int fd)
 
 char	*get_next_line(int fd)
 {
-	static t_list	*buf_list = NULL;
+	static t_list	*buf_list[4096];
 	char			*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) == -1)
+	if (fd < 0 || fd > 4095 || BUFFER_SIZE <= 0 || read(fd, &line, 0) == -1)
 	{
-		free_list(buf_list);
-		buf_list = NULL;
+		free_list(*buf_list);
+		*buf_list = NULL;
 		return (NULL);
 	}
 	line = NULL;
-	create_list(&buf_list, fd);
-	if (!buf_list)
+	create_list(buf_list, fd);
+	if (buf_list[fd])
 		return (NULL);
-	retrieve_line(buf_list, &line);
-	clean_keep_rest(&buf_list);
+	retrieve_line(buf_list[fd], &line);
+	clean_keep_rest(&buf_list[fd]);
 	if (line[0] == '\0')
 	{
-		free_list(buf_list);
-		buf_list = NULL;
+		free_list(*buf_list);
+		*buf_list = NULL;
 		free(line);
 		return (NULL);
 	}
 	return (line);
 }
+

@@ -1,15 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dabae <dabae@student.42perpignan.fr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 12:07:55 by dabae             #+#    #+#             */
-/*   Updated: 2023/11/24 09:17:13 by dabae            ###   ########.fr       */
+/*   Created: 2023/11/24 09:24:06 by dabae             #+#    #+#             */
+/*   Updated: 2023/11/24 09:44:00 by dabae            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "get_next_line.h"
+
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(char *s)
 {
@@ -79,3 +80,4 @@ int	found_n(t_list *buf_list)
 	}
 	return (0);
 }
+
