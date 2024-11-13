@@ -12,10 +12,6 @@
 
 **get_next_line** est un projet en C qui vise à fournir une fonction permettant de lire une ligne à partir d'un descripteur de fichier, y compris l'entrée standard. Cette implémentation permet de lire efficacement ligne par ligne à partir de fichiers, tout en gérant simultanément plusieurs descripteurs de fichier. Le projet met l'accent sur la gestion de la mémoire et l'allocation dynamique, garantissant que les ressources sont correctement gérées lors de la lecture de l'entrée. En travaillant sur **get_next_line**, vous approfondirez votre compréhension de la gestion des fichiers en C et améliorerez vos compétences dans la manipulation des tampons et des chaînes.
 
-**For the English and Korean versions of this README, please follow the links:**
-- [English Version](./README.md)
-- [한국어 Version](./README_kr.md)
-
 ## Fonctionnalités
 
 - Lit une ligne à partir d'un descripteur de fichier, y compris le caractère de nouvelle ligne.
